@@ -31,7 +31,7 @@ const toDo = () => {
     });
   };
 
-  const loadTodos = () => {
+  const loadTodos = (tasks) => {
     for (let i = 0; i < tasks.length; i++) {
       createTask(tasks[i]);
     }
@@ -39,8 +39,9 @@ const toDo = () => {
 
   const getTodos = () => {
     if (localStorage.getItem("tasks")) {
-      tasks = localStorage.getItem("tasks");
-      loadTodos();
+      const taskList = JSON.parse(localStorage.getItem("tasks") || []);
+      console.log(taskList);
+      loadTodos(taskList);
     }
   };
 
