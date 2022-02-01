@@ -1,4 +1,8 @@
+import { createElement, addContent, prepareFinal } from "./helpers/createElement/index.js";
+import { onCreateTags} from "./data/index.js";
+
 const toDo = () => {
+
   const taskInput = document.getElementById("input-text"),
     taskAddButton = document.getElementById("add-task"),
     taskList = document.getElementById("task-list");
@@ -6,24 +10,26 @@ const toDo = () => {
   const tasks = [];
 
   const createTask = (task) => {
-    const li = document.createElement("li"),
-      checkbox = document.createElement("input"),
-      span = document.createElement("span"),
-      deleteBtn = document.createElement("button");
+    const tags = createElement(document, onCreateTags);
 
-    deleteBtn.classList.add("delete-button");
-    deleteBtn.textContent = "delete";
+    const {
+      li,
+      checkbox,
+      span,
+      deleteBtn
+    } = tags;
+
+    const toAppend = [checkbox, span, deleteBtn];
+
+    addContent(deleteBtn, {className: 'delete-button', textContent: 'delete'})
 
     checkbox.type = "checkbox";
 
-    span.textContent = task;
-    span.classList.add("task");
+    addContent(span, {className: 'task', textContent: task});
+
     tasks.push(task);
 
-    taskList.appendChild(li);
-    li.appendChild(checkbox);
-    li.appendChild(span);
-    li.appendChild(deleteBtn);
+    prepareFinal(taskList, li, toAppend);
 
     deleteBtn.addEventListener("click", (e) => {
       deleteTask(e.target.parentNode.querySelector(".task").textContent);
