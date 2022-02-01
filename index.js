@@ -3,7 +3,7 @@ const toDo = () => {
     taskAddButton = document.getElementById("add-task"),
     taskList = document.getElementById("task-list");
 
-  let tasks = [];
+  const tasks = [];
 
   const createTask = (task) => {
     const li = document.createElement("li"),
