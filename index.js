@@ -3,7 +3,7 @@ const toDo = () => {
     taskAddButton = document.getElementById("add-task"),
     taskList = document.getElementById("task-list");
 
-  const tasks = [];
+  let tasks = [];
 
   const createTask = (task) => {
     const li = document.createElement("li"),
@@ -27,10 +27,24 @@ const toDo = () => {
 
     deleteBtn.addEventListener("click", (e) => {
       deleteTask(e.target.parentNode.querySelector(".task").textContent);
-
       e.target.parentNode.remove();
     });
   };
+
+  const loadTodos = () => {
+    for (let i = 0; i < tasks.length; i++) {
+      createTask(tasks[i]);
+    }
+  };
+
+  const getTodos = () => {
+    if (localStorage.getItem("tasks")) {
+      tasks = localStorage.getItem("tasks");
+      loadTodos();
+    }
+  };
+
+  getTodos();
 
   const saveTasks = () => {
     localStorage.setItem("tasks", JSON.stringify(tasks));
